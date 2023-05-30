@@ -1,0 +1,10 @@
+package application;
+
+import ui.Form_GiaoDienChinh;
+import ui.Form_NhanXe;
+
+public class RunApplication {
+    public static void main(String[] args) {
+        new Form_NhanXe().setVisible(true);
+    }
+}
