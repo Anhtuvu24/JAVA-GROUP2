@@ -285,33 +285,34 @@ public class VeThang_Dao {
 
     public List<VeThang> TimKiemNgayDK(Date ngay){
         List<VeThang> list = new ArrayList<>();
-        try{
+        try {
             PreparedStatement stmt = con.prepareStatement("select * from VETHANG vt where NGAYDANGKY = ?");
             stmt.setDate(1,ngay);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
                 VeThang veThang = new VeThang(rs.getString(1),rs.getString(2), rs.getString(3),
                         rs.getString(4), rs.getString(12),rs.getString(13), rs.getDate(14));
-                if (rs.getString(5) != null) {
-                    veThang.setNgayNhan(rs.getDate(5));
-                    veThang.setGioNhan(Time.valueOf(rs.getString(6)));
-                    if (rs.getString(7) != null) {
-                        veThang.setNgayTra(rs.getDate(7));
-                        veThang.setGioTra(Time.valueOf(rs.getString(8)));
-                    }
-                    KhuVuc_Dao khuVuc_dao = new KhuVuc_Dao();
-                    ViTri_Dao viTri_dao = new ViTri_Dao();
-                    LoaiVe_Dao loaiVe_dao = new LoaiVe_Dao();
-                    veThang.setLoaiVe(loaiVe_dao.TimKiemMa(rs.getString(9)));
-                    if (veThang.getKhuVuc() != null)
-                        veThang.setKhuVuc(khuVuc_dao.TimKiemMa(rs.getString(10)));
-                    if (veThang.getLoaiXe().equals("Xe Oto")) {
-                        veThang.setViTri(viTri_dao.TimKiemViTriByMa(rs.getString(11)));
-                    }
-                    list.add(veThang);
-                }
+                list.add(veThang);
+//                if (rs.getString(5) != null) {
+//                    veThang.setNgayNhan(rs.getDate(5));
+//                    veThang.setGioNhan(Time.valueOf(rs.getString(6)));
+//                    if (rs.getString(7) != null) {
+//                        veThang.setNgayTra(rs.getDate(7));
+//                        veThang.setGioTra(Time.valueOf(rs.getString(8)));
+//                    }
+//                    KhuVuc_Dao khuVuc_dao = new KhuVuc_Dao();
+//                    ViTri_Dao viTri_dao = new ViTri_Dao();
+//                    LoaiVe_Dao loaiVe_dao = new LoaiVe_Dao();
+//                    veThang.setLoaiVe(loaiVe_dao.TimKiemMa(rs.getString(9)));
+//                    if (veThang.getKhuVuc() != null)
+//                        veThang.setKhuVuc(khuVuc_dao.TimKiemMa(rs.getString(10)));
+//                    if (veThang.getLoaiXe().equals("Xe Oto")) {
+//                        veThang.setViTri(viTri_dao.TimKiemViTriByMa(rs.getString(11)));
+//                    }
+//                    list.add(veThang);
+//                }
             }
-        }catch (SQLException e){
+        } catch (SQLException e){
             e.printStackTrace();
         }
         return list;

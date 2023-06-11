@@ -7,6 +7,8 @@ import entity.VeXe;
 
 import java.io.Console;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,14 +80,20 @@ public class VeXe_Dao {
                         veNgay.setNgayTra(rs.getDate(7));
                         
                     }
-                    String value = rs.getString(8);
-                    if(rs.getString(8) != null && !rs.wasNull() && rs.getString(8) != "null") {
-//                    	System.out.println(rs.getString(8));
-//                    	veNgay.setGioTra(Time.valueOf(value));
-                    	if (rs.getString(8) instanceof String) {
-                    	    System.out.println("Đây là String");
-                    	}
-                    }
+
+                    if (rs.getString(8) != null && !rs.wasNull() && !rs.getString(8).equals("null")) {
+                        String timeString = rs.getString(8);
+                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                        try {
+                            java.util.Date date = sdf.parse(timeString);
+                            Time time = new Time(date.getTime());
+                            veNgay.setGioTra(time);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        veNgay.setGioTra(null);
+                    }	
                     LoaiVe_Dao loaiVe_dao = new LoaiVe_Dao();
                     veNgay.setLoaiVe(loaiVe_dao.TimKiemMa(rs.getString(9)));
                     KhuVuc_Dao khuVuc_dao = new KhuVuc_Dao();
@@ -103,7 +111,7 @@ public class VeXe_Dao {
 
         public boolean addveNgay(VeNgay veNgay) {
             try {
-                PreparedStatement cnAdd = con.prepareStatement("INSERT INTO VeNgay ([LOAIXE],[BIENSO],[MAUXE],[NGAYNHAN],[GIONHAN],[MALV], [MAKV], [MAVT]) VALUES(?,?,?,?,?,?,?,?)");
+                PreparedStatement cnAdd = con.prepareStatement("INSERT INTO VeNgay ([LOAIXE],[BIENSO],[MAUXE],[NGAYNHAN],[GIONHAN], [NGAYTRA], [GIOTRA], [MALV], [MAKV], [MAVT]) VALUES(?,?,?,?,?,?,?,?,?,?)");
                 cnAdd.setString(1,veNgay.getLoaiXe());
                 if (veNgay.getLoaiXe().equals("Xe Đạp")) {
                     cnAdd.setString(2, "Không");
@@ -113,11 +121,11 @@ public class VeXe_Dao {
                 cnAdd.setString(3,veNgay.getMauXe());
                 cnAdd.setDate(4,veNgay.getNgayNhan());
                 cnAdd.setString(5,String.valueOf(veNgay.getGioNhan()));
-//                cnAdd.setDate(6,veNgay.getNgayTra());
-//                cnAdd.setString(7, String.valueOf(veNgay.getGioTra()));
-                cnAdd.setString(6,"LV001");
-                cnAdd.setString(7,veNgay.getKhuVuc().getMaKhuVuc());
-                cnAdd.setString(8,veNgay.getViTri().getMaViTri());
+                cnAdd.setDate(6,veNgay.getNgayTra());
+                cnAdd.setString(7, String.valueOf(veNgay.getGioTra()));
+                cnAdd.setString(8,"LV001");
+                cnAdd.setString(9,veNgay.getKhuVuc().getMaKhuVuc());
+                cnAdd.setString(10,veNgay.getViTri().getMaViTri());
                 int n = cnAdd.executeUpdate();
                 if(n > 0)
                     return true;

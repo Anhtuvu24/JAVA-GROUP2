@@ -66,17 +66,10 @@ public class Form_ThongKeLuotDangKy extends JPanel {
         bNorth = Box.createVerticalBox();
         JRadioButton rdThang, rdNgay;
         ButtonGroup btnGR;
-        JComboBox cbcThang;
         JButton btnTraCuu;
         bNorth.setPreferredSize(new Dimension(400, 110));
 
         bNorth.add(bNorth1 = Box.createHorizontalBox());
-        bNorth1.add(rdThang = new JRadioButton("Tháng"));
-        bNorth1.add(Box.createHorizontalStrut(10));
-        bNorth1.add(cbcThang = new JComboBox<>());
-        for (int i = 1; i <= 12; i++) {
-            cbcThang.addItem(String.valueOf(i));
-        }
         bNorth.add(Box.createVerticalStrut(10));
 
         bNorth.add(bNorth2 = Box.createHorizontalBox());
@@ -96,14 +89,10 @@ public class Form_ThongKeLuotDangKy extends JPanel {
         }
         bNorth2.add(ngayThongKe);
         bNorth.add(Box.createVerticalStrut(20));
-
-        rdNgay.setPreferredSize(rdThang.getPreferredSize());
         btnGR = new ButtonGroup();
-        btnGR.add(rdThang);
         btnGR.add(rdNgay);
 
         btnTraCuu = new JButton("Tra Cứu");
-//        btnTraCuu.setIcon(new ImageIcon(getClass().getResource("/icons/search_client_icon.png")));
         btnTraCuu.setBackground(Color.decode("#00bcd4"));
         btnTraCuu.setForeground(Color.decode("#FFFFFF"));
 
@@ -144,11 +133,9 @@ public class Form_ThongKeLuotDangKy extends JPanel {
 
         JButton btnInHoaDon, btnXoa, btnSua, btnLamMoi, btnXoaRong;
         pnCenS.add(btnInHoaDon = new JButton("Xuất Excel"));
-//        btnInHoaDon.setIcon(new ImageIcon(getClass().getResource("/icons/print_icon.png")));
         btnInHoaDon.setBackground(Color.decode("#ff6900"));
         btnInHoaDon.setForeground(Color.decode("#FFFFFF"));
         pnCenS.add(btnLamMoi = new JButton("Làm Mới"));
-//        btnLamMoi.setIcon(new ImageIcon(getClass().getResource("/icons/update_icon.png")));
         btnLamMoi.setBackground(Color.decode("#00bcd4"));
         btnLamMoi.setForeground(Color.decode("#FFFFFF"));
 
@@ -216,26 +203,14 @@ public class Form_ThongKeLuotDangKy extends JPanel {
         btnTraCuu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (rdThang.isSelected()) {
+                if (rdNgay.isSelected()){
                     List<VeXe> list = new ArrayList<>();
-                    for (VeThang vt : veThang_dao.TimKiemThangDK(Integer.parseInt(cbcThang.getSelectedItem().toString()))) {
-                        if (vt.getNgayNhan() != null)
+                    java.util.Date utilDate = ngayThongKe.getDate();
+                	java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+                    for (VeThang vt : veThang_dao.TimKiemNgayDK(sqlDate)) {
+                        if (vt.getNgayDangKy() != null) {
                             list.add(vt);
-                    }
-                    table.setModel(new VeThang_Table(list));
-                    double tongTien = 0;
-                    int soLuot = 0;
-                    for (int i = 0; i < table.getRowCount(); i++){
-                        tongTien += Double.valueOf(String.valueOf(table.getValueAt(i, 8)));
-                        soLuot++;
-                    }
-                    txtTongTien.setText(String.valueOf(tongTien));
-                    txtTongLuot.setText(String.valueOf(soLuot));
-                } else if (rdNgay.isSelected()){
-                    List<VeXe> list = new ArrayList<>();
-                    for (VeThang vt : veThang_dao.TimKiemNgayDK((Date) ngayThongKe.getDate())) {
-                        if (vt.getNgayNhan() != null)
-                            list.add(vt);
+                        }
                     }
                     table.setModel(new VeThang_Table(list));
                     double tongTien = 0;
@@ -247,7 +222,7 @@ public class Form_ThongKeLuotDangKy extends JPanel {
                     txtTongTien.setText(String.valueOf(tongTien));
                     txtTongLuot.setText(String.valueOf(soLuot));
                 } else {
-                    JOptionPane.showMessageDialog(null, "Chua click!");
+                    JOptionPane.showMessageDialog(null, "Chua chon che do loc theo ngay!");
                 }
             }
         });

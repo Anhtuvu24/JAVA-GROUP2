@@ -76,7 +76,6 @@ public class Form_TraXe extends JPanel {
         cbcTim.setPreferredSize(new Dimension(120, 20));
         bNorth.add(Box.createHorizontalStrut(20));
         bNorth.add(btnTimVe = new JButton("Tìm Kiếm"));
-//        btnTimVe.setIcon(new ImageIcon(getClass().getResource("/icons/search_client_icon.png")));
         btnTimVe.setBackground(Color.decode("#00bcd4"));
         btnTimVe.setForeground(Color.decode("#FFFFFF"));
         bNorth.add(Box.createVerticalStrut(15));

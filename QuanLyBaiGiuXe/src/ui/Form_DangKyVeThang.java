@@ -286,7 +286,6 @@ public class Form_DangKyVeThang extends JPanel {
         btnSua.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                String dateTime = (String) formatter.format(namSinh.getDate());
                 int r = table.getSelectedRow();
                 txtMa.setEnabled(false);
                 if (r != -1) {

@@ -31,33 +31,27 @@ public class Form_GiaoDienChinh extends JFrame implements MouseListener, ActionL
         JMenuBar menuBar = new JMenuBar();
 
         mnTrangChu = new JMenu("Trang chu");
-//        mnTrangChu.setIcon(new ImageIcon(getClass().getResource("/icons/home_icon.png")));
         mnTrangChu.setFont(ftmn);
         mnTrangChu.isSelected();
 
 
         mnNhanXe = new JMenu("Nhan xe");
-//        mnNhanXe.setIcon(new ImageIcon(getClass().getResource("/icons/nhanXe_icon.png")));
         mnNhanXe.setFont(ftmn);
 
 
         mnTraXe = new JMenu("Tra xe");
-//        mnTraXe.setIcon(new ImageIcon(getClass().getResource("/icons/traXe_icon.png")));
         mnTraXe.setFont(ftmn);
 
 
         mnDangKy = new JMenu("Dang ky ve thang");
-//        mnDangKy.setIcon(new ImageIcon(getClass().getResource("/icons/dangKyVe_icon.png")));
         mnDangKy.setFont(ftmn);
 
 
         mnKhuVuc = new JMenu("Khu vuc");
-//        mnKhuVuc.setIcon(new ImageIcon(getClass().getResource("/icons/khuVuc_icon.png")));
         mnKhuVuc.setFont(ftmn);
 
 
         mnThongKe = new JMenu("Thong ke");
-//        mnThongKe.setIcon(new ImageIcon(getClass().getResource("/icons/thongKe_icon.png")));
         mnThongKe.setFont(ftmn);
         mnThongKe.add(mnThongKeLuotGui = new JMenuItem("Thong ke luot gui xe"));
         mnThongKe.add(mnThongKeLuotDangKy = new JMenuItem("Thong ke luot dang ky ve thang"));
@@ -65,7 +59,6 @@ public class Form_GiaoDienChinh extends JFrame implements MouseListener, ActionL
         mnThongKeLuotDangKy.setPreferredSize(new Dimension(200,30));
 
         mnThoat = new JMenu("Thoat");
-//        mnThoat.setIcon(new ImageIcon(getClass().getResource("/icons/exit_icon.png")));
         mnThoat.setFont(ftmn);
 
         JMenu menu = new JMenu("                                                                    " +
@@ -94,7 +87,6 @@ public class Form_GiaoDienChinh extends JFrame implements MouseListener, ActionL
         pnCenterN.setPreferredSize(new Dimension(1000,80));
 
         JLabel lbImage = new JLabel();
-//        lbImage.setIcon(new ImageIcon(getClass().getResource("/icons/background.png")));
 
         pnCenterN.add(lblTieuDe);
         pnCenterC.add(lbImage);
